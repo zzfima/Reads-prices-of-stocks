@@ -7,7 +7,10 @@ namespace Service.Interfaces
     /// </summary>
     public interface IStockReader
     {
+        //Start read stock prices asyncronously
         Task StartReadAsync(string path, TimeSpan readFrequency);
-        void StopRead();
+        
+        //stop reading stock prices
+        Task StopReadAsync();
     }
 }

@@ -1,10 +1,13 @@
 ﻿using Service.Factories;
+using Service.Interfaces;
+using Service.StockPriceReaders;
 
-var stockReader = StockReaderFactory.GetStockReader(StockReaderType.Json);
-Task.Run(() => stockReader.StartReadAsync("JsonSource.json", new TimeSpan(0, 0, 5)));
+var stockSourceParser = StockSourceParserFactory.GetStockSourceParser(StockReaderType.Json);
+IStockReader stockReader = new StocksReader(stockSourceParser);
+Task.Run(() => stockReader.StartReadAsync("JsonSource.json", new TimeSpan(0, 0, 1)));
 
 Thread.Sleep(10000);
 
-stockReader.StopRead();
+Task.Run(() =>stockReader.StopReadAsync());
 
-Console.ReadLine(); 
+Console.ReadLine();

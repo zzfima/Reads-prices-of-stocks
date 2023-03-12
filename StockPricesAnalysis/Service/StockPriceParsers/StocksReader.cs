@@ -1,47 +1,48 @@
-﻿using Newtonsoft.Json;
-using Service.Interfaces;
+﻿using Service.Interfaces;
 using Service.Models;
-using System.Threading;
 
 namespace Service.StockPriceReaders
 {
-    public class JsonStockReader : IStockReader, IDisposable
+    public class StocksReader : IStockReader, IDisposable
     {
         private StockList? _stocks;
         private CancellationTokenSource _source;
         private CancellationToken _token;
         private bool _disposed;
 
-        public JsonStockReader()
+        private IStockSourceParser _stockSourceParser;
+
+        public StocksReader(IStockSourceParser stockSourceParser)
         {
             _source = new CancellationTokenSource();
             _token = _source.Token;
             _stocks = null;
+            _stockSourceParser = stockSourceParser;
         }
 
+        #region Implement IStockReader
         public async Task StartReadAsync(string path, TimeSpan readFrequency)
         {
             while (!_token.IsCancellationRequested)
             {
-                await UpdateStockPrices(path);
+                await UpdateStockPricesAsync(path);
                 await Task.Delay(readFrequency, _token);
             }
         }
 
-        public void StopRead()
+        public async Task StopReadAsync()
         {
-            _source.Cancel();
+            await Task.Run(() => _source.Cancel());
         }
+        #endregion
 
-        private async Task UpdateStockPrices(string path)
+        private async Task UpdateStockPricesAsync(string path)
         {
-            var text = await File.ReadAllTextAsync(path);
-            var stocks = JsonConvert.DeserializeObject<Stock[]>(text);
-            _stocks = new StockList(stocks);
+            _stocks = await Task.Run(() => _stockSourceParser.Parse(path));
         }
 
         #region Dispose
-        ~JsonStockReader() => Dispose(false);
+        ~StocksReader() => Dispose(false);
 
         public void Dispose()
         {
@@ -55,7 +56,7 @@ namespace Service.StockPriceReaders
                 if (disposing)
                 {
                     //dispose managed resources
-                    StopRead();
+                    _source.Cancel();
                     _source.Dispose();
                 }
 
