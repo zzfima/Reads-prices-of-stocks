@@ -9,5 +9,10 @@ namespace Service.StockPriceReaders
         {
             throw new NotImplementedException();
         }
+
+        public void StopRead()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

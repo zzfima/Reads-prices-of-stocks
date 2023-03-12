@@ -8,5 +8,6 @@ namespace Service.Interfaces
     public interface IStockReader
     {
         Task StartReadAsync(string path, TimeSpan readFrequency);
+        void StopRead();
     }
 }
