@@ -1,17 +1,16 @@
-﻿namespace Service.Models
+﻿using Newtonsoft.Json;
+
+namespace Service.Models
 {
     /// <summary>
     /// Stock entity
     /// </summary>
     public class Stock
     {
-        public int Price { get; }
-        public string Name { get; }
+        [JsonProperty("price")]
+        public float price { get; set; }
 
-        public Stock(string name, int price)
-        {
-            Price = price;
-            Name = name;
-        }
+        [JsonProperty("name")]
+        public string name { get; set; }
     }
 }

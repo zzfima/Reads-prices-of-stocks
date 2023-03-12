@@ -1,18 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Service.Interfaces;
 using Service.Models;
-using System.Xml.Linq;
 
 namespace Service.StockPriceReaders
 {
     public class JsonStockReader : IStockReader
     {
-        private Stocks _stocks;
-
-        public JsonStockReader()
-        {
-            _stocks = new Stocks();
-        }
+        private StockList _stocks;
 
         public async Task StartReadAsync(string path, TimeSpan readFrequency)
         {
@@ -26,7 +20,8 @@ namespace Service.StockPriceReaders
         private async Task UpdateStockPrices(string path)
         {
             var text = await File.ReadAllTextAsync(path);
-            var stocks = JsonConvert.DeserializeObject<Stocks>(text);
+            var stocks = JsonConvert.DeserializeObject<Stock[]>(text);
+            _stocks = new StockList(stocks);
         }
     }
 }

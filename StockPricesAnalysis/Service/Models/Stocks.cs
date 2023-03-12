@@ -3,14 +3,15 @@
     /// <summary>
     /// Stocks entity
     /// </summary>
-    public sealed class Stocks
+    public sealed class StockList
     {
-        private IList<Stock> _stocks;
-        public Stocks()
+        public Stock[] Stocks { get; }
+
+        public StockList(Stock[] stocks)
         {
-            _stocks = new List<Stock>();
+            Stocks = stocks;
         }
 
-        public Stock? this[string name] => _stocks.FirstOrDefault(s => s.Name.Equals(name));
+        public Stock? this[string name] => Stocks.FirstOrDefault(s => s.name.Equals(name));
     }
 }
