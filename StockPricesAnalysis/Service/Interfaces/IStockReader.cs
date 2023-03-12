@@ -12,5 +12,10 @@ namespace Service.Interfaces
         
         //stop reading stock prices
         Task StopReadAsync();
+
+        //
+        float GetLowestPrice(string stockName);
+
+        void GetAllLowestPrices();
     }
 }

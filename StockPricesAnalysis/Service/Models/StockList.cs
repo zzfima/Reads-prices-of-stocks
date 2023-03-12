@@ -12,6 +12,6 @@
             Stocks = stocks;
         }
 
-        public Stock? this[string name] => Stocks.FirstOrDefault(s => s.Name.Equals(name));
+        public float GetLowestPrice(string stockName) => Stocks.Where(s1 => s1.Name == stockName).Min(s2 => s2.Price);
     }
 }

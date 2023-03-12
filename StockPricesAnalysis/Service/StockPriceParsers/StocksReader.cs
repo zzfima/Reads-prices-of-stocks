@@ -34,6 +34,14 @@ namespace Service.StockPriceReaders
         {
             await Task.Run(() => _source.Cancel());
         }
+
+        public float GetLowestPrice(string stockName) => _stocks.GetLowestPrice(stockName);
+
+
+        public void GetAllLowestPrices()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         private async Task UpdateStockPricesAsync(string path)
@@ -65,7 +73,6 @@ namespace Service.StockPriceReaders
                 _disposed = true;
             }
         }
-
         #endregion
     }
 }
