@@ -9,11 +9,11 @@ namespace Service.StockPriceParsers
     /// </summary>
     public class JsonStocksParser : IStockSourceParser
     {
-        public StockList Parse(string path)
+        public LowestStocks Parse(string path)
         {
             var text = File.ReadAllText(path);
             var stocks = JsonConvert.DeserializeObject<Stock[]>(text);
-            return new StockList(stocks.ToList<Stock>());
+            return new LowestStocks(stocks.ToList<Stock>());
         }
     }
 }

@@ -19,9 +19,10 @@ IStockSourceParser stockSourceParser = StockSourceParserFactory.GetStockSourcePa
 IStockReader stockReader = new StocksReader(stockSourceParser);
 Task.Run(() => stockReader.StartReadAsync("JsonSource.json", new TimeSpan(0, 0, 20)));
 
-Thread.Sleep(500);
+Thread.Sleep(1500);
 
-Console.WriteLine($"Minimum of ACER is: {stockReader.GetLowestPrice("ACER")}");
+Console.WriteLine($"Lower price of ACER is: {stockReader.GetLowestPrice("ACER")}");
+Console.WriteLine($"All lower prices: {String.Join(", ", stockReader.GetAllLowestPrices().Select(s => string.Format("[{0}, {1}]\n", s.Key, s.Value)))}");
 
 Thread.Sleep(30000);
 

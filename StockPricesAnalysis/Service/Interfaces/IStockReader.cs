@@ -1,6 +1,4 @@
-﻿using Service.Models;
-
-namespace Service.Interfaces
+﻿namespace Service.Interfaces
 {
     /// <summary>
     /// Read price from different sources
@@ -16,6 +14,6 @@ namespace Service.Interfaces
         //
         float GetLowestPrice(string stockName);
 
-        void GetAllLowestPrices();
+        IDictionary<string, float> GetAllLowestPrices();
     }
 }

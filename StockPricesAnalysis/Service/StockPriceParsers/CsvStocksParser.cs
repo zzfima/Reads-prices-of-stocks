@@ -6,7 +6,7 @@ namespace Service.StockPriceParsers
 {
     public class CsvStocksParser : IStockSourceParser
     {
-        public StockList Parse(string path)
+        public LowestStocks Parse(string path)
         {
             using (TextFieldParser textFieldParser = new TextFieldParser(path))
             {
@@ -26,7 +26,7 @@ namespace Service.StockPriceParsers
 
                     stockList.Add(new Stock() { Name = name, Price = price, Volume = volume, Date = date });
                 }
-                return new StockList(stockList);
+                return new LowestStocks(stockList);
             }
         }
     }

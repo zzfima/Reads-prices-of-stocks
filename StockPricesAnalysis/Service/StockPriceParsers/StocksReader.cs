@@ -1,11 +1,12 @@
 ﻿using Service.Interfaces;
 using Service.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Service.StockPriceReaders
 {
     public class StocksReader : IStockReader, IDisposable
     {
-        private StockList? _stocks;
+        private LowestStocks? _stocks;
         private CancellationTokenSource _source;
         private CancellationToken _token;
         private bool _disposed;
@@ -38,10 +39,7 @@ namespace Service.StockPriceReaders
         public float GetLowestPrice(string stockName) => _stocks.GetLowestPrice(stockName);
 
 
-        public void GetAllLowestPrices()
-        {
-            throw new NotImplementedException();
-        }
+        public IDictionary<string, float> GetAllLowestPrices() => _stocks.GetAllLowestPrices();
         #endregion
 
         private async Task UpdateStockPricesAsync(string path)

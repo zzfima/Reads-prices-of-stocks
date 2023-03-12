@@ -4,6 +4,6 @@ namespace Service.Interfaces
 {
     public interface IStockSourceParser
     {
-        StockList Parse(string path);
+        LowestStocks Parse(string path);
     }
 }
