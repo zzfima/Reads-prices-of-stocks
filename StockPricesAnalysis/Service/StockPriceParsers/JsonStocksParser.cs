@@ -13,7 +13,7 @@ namespace Service.StockPriceParsers
         {
             var text = File.ReadAllText(path);
             var stocks = JsonConvert.DeserializeObject<Stock[]>(text);
-            return new StockList(stocks);
+            return new StockList(stocks.ToList<Stock>());
         }
     }
 }

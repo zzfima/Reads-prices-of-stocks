@@ -5,13 +5,13 @@
     /// </summary>
     public sealed class StockList
     {
-        public Stock[] Stocks { get; }
+        public IList<Stock> Stocks { get; }
 
-        public StockList(Stock[] stocks)
+        public StockList(IList<Stock> stocks)
         {
             Stocks = stocks;
         }
 
-        public Stock? this[string name] => Stocks.FirstOrDefault(s => s.name.Equals(name));
+        public Stock? this[string name] => Stocks.FirstOrDefault(s => s.Name.Equals(name));
     }
 }

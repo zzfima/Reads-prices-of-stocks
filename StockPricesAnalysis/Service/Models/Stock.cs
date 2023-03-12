@@ -8,9 +8,15 @@ namespace Service.Models
     public class Stock
     {
         [JsonProperty("price")]
-        public float price { get; set; }
+        public float Price { get; set; }
 
         [JsonProperty("name")]
-        public string name { get; set; }
+        public string Name { get; set; }
+
+        [JsonProperty("volume")]
+        public float Volume { get; set; }
+
+        [JsonProperty("date")]
+        public DateTime Date { get; set; }
     }
 }
